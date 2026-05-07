@@ -12,7 +12,7 @@ const generateToken = (id) => {
 // @route   POST /api/auth/signup
 exports.signup = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     // Validation
     if (!name || !email || !password) {
@@ -29,6 +29,7 @@ exports.signup = async (req, res, next) => {
       name,
       email,
       password,
+      role: role || 'Member',
       avatar: `https://ui-avatars.com/api/?name=${name}`
     });
 

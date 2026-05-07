@@ -26,8 +26,8 @@ exports.getProjectTasks = async (req, res, next) => {
     if (assignee) filter.assignee = assignee;
 
     const tasks = await Task.find(filter)
-      .populate('assignee', 'name email avatar')
-      .populate('createdBy', 'name email avatar')
+      .populate('assignee', 'name email avatar role')
+      .populate('createdBy', 'name email avatar role')
       .sort('-createdAt');
 
     res.status(200).json({
@@ -50,8 +50,8 @@ exports.getMyTasks = async (req, res, next) => {
         { createdBy: req.user.id }
       ]
     })
-      .populate('assignee', 'name email avatar')
-      .populate('createdBy', 'name email avatar')
+      .populate('assignee', 'name email avatar role')
+      .populate('createdBy', 'name email avatar role')
       .populate('project', 'name')
       .sort('-createdAt');
 
@@ -79,8 +79,8 @@ exports.getMyTasks = async (req, res, next) => {
 exports.getTask = async (req, res, next) => {
   try {
     const task = await Task.findById(req.params.id)
-      .populate('assignee', 'name email avatar')
-      .populate('createdBy', 'name email avatar')
+      .populate('assignee', 'name email avatar role')
+      .populate('createdBy', 'name email avatar role')
       .populate('project', 'name');
 
     if (!task) {
@@ -128,13 +128,14 @@ exports.createTask = async (req, res, next) => {
       createdBy: req.user.id
     });
 
-    await task.populate('assignee', 'name email avatar')
-      .populate('createdBy', 'name email avatar')
+    const populatedTask = await Task.findById(task._id)
+      .populate('assignee', 'name email avatar role')
+      .populate('createdBy', 'name email avatar role')
       .populate('project', 'name');
 
     res.status(201).json({
       success: true,
-      task
+      task: populatedTask
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -156,10 +157,10 @@ exports.updateTask = async (req, res, next) => {
     task = await Task.findByIdAndUpdate(
       req.params.id,
       { title, description, status, priority, assignee, dueDate },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     )
-      .populate('assignee', 'name email avatar')
-      .populate('createdBy', 'name email avatar')
+      .populate('assignee', 'name email avatar role')
+      .populate('createdBy', 'name email avatar role')
       .populate('project', 'name');
 
     res.status(200).json({
@@ -212,7 +213,7 @@ exports.addComment = async (req, res, next) => {
           }
         }
       },
-      { new: true }
+      { returnDocument: 'after' }
     )
       .populate('assignee', 'name email avatar')
       .populate('createdBy', 'name email avatar')

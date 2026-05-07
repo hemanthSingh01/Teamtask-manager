@@ -7,15 +7,22 @@ exports.protect = async (req, res, next) => {
     token = req.headers.authorization.split(' ')[1];
   }
 
+  console.log('=== PROTECT MIDDLEWARE ===');
+  console.log('Token:', token ? 'Present' : 'Missing');
+  console.log('Headers:', req.headers.authorization);
+
   if (!token) {
+    console.log('No token - returning 401');
     return res.status(401).json({ success: false, message: 'Not authorized to access this route' });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+    console.log('Token verified - User:', req.user);
     next();
   } catch (error) {
+    console.log('Token verification failed:', error.message);
     return res.status(401).json({ success: false, message: 'Not authorized to access this route' });
   }
 };

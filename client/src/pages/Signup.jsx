@@ -5,7 +5,7 @@ import { useAuthStore } from '../store';
 import './Auth.css';
 
 const Signup = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'Member' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -62,6 +62,15 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
+          <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            className="role-select"
+          >
+            <option value="Member">Sign Up as Member</option>
+            <option value="Admin">Sign Up as Admin</option>
+          </select>
           <button type="submit" disabled={loading}>
             {loading ? 'Creating Account...' : 'Sign Up'}
           </button>

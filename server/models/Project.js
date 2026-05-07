@@ -53,9 +53,8 @@ const projectSchema = new mongoose.Schema({
   }
 });
 
-projectSchema.pre('save', function(next) {
+projectSchema.pre('save', async function() {
   this.updatedAt = Date.now();
-  next();
 });
 
 module.exports = mongoose.model('Project', projectSchema);

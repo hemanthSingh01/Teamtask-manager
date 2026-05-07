@@ -8,48 +8,54 @@
 
 .auth-box {
   background: white;
-  padding: 40px;
+  padding: 60px;
   border-radius: 10px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .auth-box h1 {
   text-align: center;
   color: #667eea;
-  margin-bottom: 10px;
-  font-size: 28px;
+  margin-bottom: 15px;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .auth-box h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 30px;
-  font-size: 20px;
+  margin-bottom: 35px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .error-message {
   background: #fee;
   color: #c33;
-  padding: 12px;
+  padding: 15px;
   border-radius: 5px;
   margin-bottom: 20px;
   border-left: 4px solid #c33;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .auth-box form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .auth-box input {
-  padding: 12px;
+  padding: 18px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 18px;
   transition: border-color 0.3s;
+  font-family: inherit;
 }
 
 .auth-box input:focus {
@@ -57,8 +63,24 @@
   border-color: #667eea;
 }
 
+.role-select {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 18px;
+  transition: border-color 0.3s;
+  background-color: white;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.role-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
 .auth-box button {
-  padding: 12px;
+  padding: 18px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
@@ -66,6 +88,8 @@
   cursor: pointer;
   font-weight: bold;
   transition: opacity 0.3s;
+  font-size: 18px;
+  font-family: inherit;
 }
 
 .auth-box button:hover:not(:disabled) {
@@ -80,8 +104,9 @@
 .auth-box p {
   text-align: center;
   color: #666;
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 25px;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 .auth-box a {

@@ -67,7 +67,7 @@ const taskSchema = new mongoose.Schema({
   }
 });
 
-taskSchema.pre('save', function(next) {
+taskSchema.pre('save', async function() {
   this.updatedAt = Date.now();
   // Check if task is overdue
   if (this.dueDate && this.dueDate < new Date() && this.status !== 'Done') {
@@ -75,7 +75,6 @@ taskSchema.pre('save', function(next) {
   } else {
     this.isOverdue = false;
   }
-  next();
 });
 
 module.exports = mongoose.model('Task', taskSchema);

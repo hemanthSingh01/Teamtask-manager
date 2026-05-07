@@ -2,8 +2,12 @@ exports.errorHandler = (err, req, res, next) => {
   const error = { ...err };
   error.message = err.message;
 
-  // Log to console for dev
-  console.error(err);
+  // Log to console for dev with explicit output
+  console.error('=== ERROR HANDLER CALLED ===');
+  console.error('Error name:', err.name);
+  console.error('Error message:', err.message);
+  console.error('Error stack:', err.stack);
+  process.stderr.write(`\n!!! ERROR: ${err.message} !!!\n`);
 
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {

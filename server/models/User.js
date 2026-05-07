@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'https://ui-avatars.com/api/?name=User'
   },
+  role: {
+    type: String,
+    enum: ['Admin', 'Member'],
+    default: 'Member'
+  },
   createdAt: {
     type: Date,
     default: Date.now

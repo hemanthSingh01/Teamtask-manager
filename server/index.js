@@ -18,9 +18,20 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// VERY FIRST LOGGING
+app.use((req, res, next) => {
+  process.stderr.write(`\n>>> REQUEST: ${req.method} ${req.path} <<<\n`);
+  console.log(`>>> REQUEST: ${req.method} ${req.path}`);
+  next();
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectRoutes);
+app.use('/api/projects', (req, res, next) => {
+  const fs = require('fs');
+  fs.appendFileSync('c:/Users/sanka/OneDrive/Desktop/teamTaskManager/server/debug.log', `\n[${new Date().toISOString()}] ${req.method} /api/projects${req.url}`);
+  next();
+}, projectRoutes);
 app.use('/api/tasks', taskRoutes);
 
 // Health check
